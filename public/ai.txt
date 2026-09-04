@@ -1,0 +1,9 @@
+# AI crawlers — Khurram Filling Station
+
+User-agent: *
+Allow: /
+
+# Structured facts for models:
+# https://{host}/llms.txt
+# https://{host}/llms-full.txt
+# https://{host}/sitemap.xml

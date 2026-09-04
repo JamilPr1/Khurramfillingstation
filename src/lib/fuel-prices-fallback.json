@@ -1,0 +1,10 @@
+{
+  "petrol": 349,
+  "diesel": 374.31,
+  "octane": 375,
+  "effective": "2026-09-04",
+  "effectiveLabel": "4 September 2026",
+  "source": "fallback",
+  "sourceUrl": "https://psopk.com/en/fuels/fuel-prices",
+  "fetchedAt": "2026-09-04T00:00:00.000Z"
+}

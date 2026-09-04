@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Bilal Ahmed">
+  <rect width="160" height="160" fill="#eef4ea"/>
+  <circle cx="80" cy="58" r="26" fill="#d7a57a"/>
+  <path d="M50 46c8-16 52-16 60 0v10c-10-8-50-8-60 0z" fill="#2a221c"/>
+  <path d="M60 80c12 8 28 8 40 0" stroke="#8a5a3a" stroke-width="3" fill="none"/>
+  <path d="M44 150c8-40 20-56 36-56s28 16 36 56" fill="#152445"/>
+  <rect x="70" y="94" width="20" height="14" fill="#f9d900"/>
+</svg>

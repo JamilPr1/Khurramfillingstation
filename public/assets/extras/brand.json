@@ -1,0 +1,18 @@
+{
+  "name": "Khurram Filling Station",
+  "font": "Montserrat",
+  "colors": {
+    "navy": "#152445",
+    "green": "#008E3C",
+    "yellow": "#F9D900",
+    "silver": "#D1D3D4",
+    "blueAlt": "#004c99",
+    "greenAlt": "#00994c",
+    "yellowAlt": "#ffcc00"
+  },
+  "taglines": [
+    "Drive Better. Go Further.",
+    "Quality. Service. Trust.",
+    "Fueling Your Journey."
+  ]
+}

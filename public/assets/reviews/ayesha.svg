@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Ayesha Malik">
+  <rect width="160" height="160" fill="#dce8df"/>
+  <circle cx="80" cy="62" r="28" fill="#3b2a22"/>
+  <ellipse cx="80" cy="68" rx="22" ry="24" fill="#e8b894"/>
+  <path d="M52 64c4-28 52-28 56 0v8c-8 14-48 14-56 0z" fill="#2c211c"/>
+  <path d="M48 150c4-36 20-52 32-52h0c12 0 28 16 32 52" fill="#152445"/>
+  <path d="M68 86c8 6 16 6 24 0" stroke="#c48a6a" stroke-width="2" fill="none"/>
+</svg>

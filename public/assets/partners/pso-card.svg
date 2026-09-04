@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 72" role="img" aria-label="PSO Card">
+  <rect width="220" height="72" rx="10" fill="#152445"/>
+  <rect x="14" y="16" width="48" height="32" rx="5" fill="#F9D900"/>
+  <rect x="18" y="28" width="40" height="6" rx="2" fill="#152445"/>
+  <text x="76" y="34" fill="#F9D900" font-family="Montserrat, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1.6">PSO CARD</text>
+  <text x="76" y="54" fill="#ffffff" font-family="Montserrat, Arial, sans-serif" font-size="16" font-weight="800">Loyalty</text>
+</svg>

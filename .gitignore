@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# demo data
+/data/store.json
+/data/contacts.json
+/data/fuel-prices.json
+/data/fuel-prices-override.json
+/data/pso-prices.html
