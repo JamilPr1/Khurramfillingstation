@@ -2,9 +2,10 @@ import { randomBytes } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { DEMO } from "./config";
+import { dataFile } from "./dataDir";
 import type { StoreData } from "./types";
 
-const FILE = path.join(process.cwd(), "data", "store.json");
+const FILE = dataFile("store.json");
 
 function nowIso() {
   return new Date().toISOString();

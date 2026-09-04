@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import fallback from "./fuel-prices-fallback.json";
+import { dataFile } from "./dataDir";
 import {
   PSO_FUEL_PRICES_URL,
   type FuelPriceBoard,
@@ -14,8 +15,8 @@ export {
   type FuelPriceKey,
 } from "./fuelPriceBoard";
 
-const CACHE_FILE = path.join(process.cwd(), "data", "fuel-prices.json");
-const OVERRIDE_FILE = path.join(process.cwd(), "data", "fuel-prices-override.json");
+const CACHE_FILE = dataFile("fuel-prices.json");
+const OVERRIDE_FILE = dataFile("fuel-prices-override.json");
 const REVALIDATE_SECONDS = 2 * 60 * 60;
 const MAX_AGE_MS = REVALIDATE_SECONDS * 1000;
 
@@ -175,5 +176,5 @@ export async function getFuelPrices(): Promise<FuelPriceBoard> {
   }
 
   if (cached) return { ...cached, source: "cache" };
-  return asBoard(fallback) as FuelPriceBoard;
+  return asBoard(fallback as FuelPriceBoard) as FuelPriceBoard;
 }

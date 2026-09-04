@@ -17,7 +17,9 @@ export function getDeferredInstall() {
 export function onInstallPromptChange(fn: (value: BeforeInstallPromptEvent | null) => void) {
   listeners.add(fn);
   fn(deferred);
-  return () => listeners.delete(fn);
+  return () => {
+    listeners.delete(fn);
+  };
 }
 
 let bound = false;

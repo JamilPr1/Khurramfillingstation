@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import { STATION } from "./config";
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(
-  /\/$/,
-  "",
-);
+function siteUrl() {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "");
+  if (explicit) return explicit;
+  const prod = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim().replace(/\/$/, "");
+  if (prod) return prod.startsWith("http") ? prod : `https://${prod}`;
+  const preview = process.env.VERCEL_URL?.trim().replace(/\/$/, "");
+  if (preview) return `https://${preview}`;
+  return "http://localhost:3000";
+}
+
+export const SITE_URL = siteUrl();
 
 export const KEYWORDS = [
   "Khurram Filling Station",

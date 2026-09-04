@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import fs from "node:fs";
 import path from "node:path";
+import { dataFile } from "@/lib/dataDir";
 
-const FILE = path.join(process.cwd(), "data", "contacts.json");
+const FILE = dataFile("contacts.json");
 
 export async function POST(req: Request) {
   try {
