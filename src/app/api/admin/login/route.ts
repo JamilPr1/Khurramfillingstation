@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       if (fromEnv && password === fromEnv) {
         s.settings.adminPasswordHash = hashSecret(password);
       } else {
-        return { error: "Admin password is not set. Add ADMIN_PASSWORD in Hostinger environment variables, then sign in." };
+        return { error: "Admin password is not set. Add ADMIN_PASSWORD in the host environment variables, then sign in." };
       }
     } else if (!verifySecret(password, s.settings.adminPasswordHash)) {
       return { error: "Wrong email or password." };
