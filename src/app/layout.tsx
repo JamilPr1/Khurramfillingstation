@@ -47,14 +47,11 @@ export const metadata: Metadata = {
   formatDetection: { telephone: true, email: true, address: true },
   alternates: {
     canonical: "/",
-    types: {
-      "text/plain": "/llms.txt",
-    },
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
   openGraph: {
     type: "website",
@@ -95,7 +92,6 @@ export const metadata: Metadata = {
     "geo.placename": "Gujranwala",
     "geo.position": `${STATION.lat};${STATION.lng}`,
     ICBM: `${STATION.lat}, ${STATION.lng}`,
-    "ai-content-declaration": "original",
   },
 };
 
@@ -110,11 +106,6 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${outfit.variable} ${montserrat.variable} h-full antialiased`}>
-      <head>
-        <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
-        <link rel="alternate" type="text/plain" href="/llms-full.txt" title="llms-full.txt" />
-        <link rel="describedby" href="/llms.txt" />
-      </head>
       <body className="min-h-full">
         <JsonLd data={[websiteJsonLd(), gasStationJsonLd()]} />
         <PwaRegister />

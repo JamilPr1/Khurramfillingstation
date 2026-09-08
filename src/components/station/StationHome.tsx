@@ -29,7 +29,7 @@ export function StationHome({ prices }: { prices: FuelPriceBoard }) {
           <h1>Khurram Filling Station</h1>
           <p className="kfs-hero-tag">Drive better. Go further.</p>
           <p>
-            24-hour PSO petrol pump opposite Garden Town — petrol, HSD diesel and Hi-Octane,
+            24-hour PSO petrol pump opposite Garden Town. Petrol, HSD diesel and Hi-Octane,
             plus a loyalty card on your phone.
           </p>
           <div className="kfs-actions">
@@ -74,7 +74,7 @@ export function StationHome({ prices }: { prices: FuelPriceBoard }) {
       <section className="kfs-section kfs-on-white">
         <p className="kfs-kicker dark">Our people</p>
         <h2>The team at this station</h2>
-        <p className="kfs-lead">Owner, manager and forecourt — the people who run Khurram Filling Station.</p>
+        <p className="kfs-lead">CEO, manager and forecourt: the people who run Khurram Filling Station.</p>
         <TeamCards />
         <div className="kfs-actions" style={{ marginTop: 28 }}>
           <Link href="/team" className="kfs-btn kfs-btn-navy">
@@ -137,7 +137,7 @@ export function StationHome({ prices }: { prices: FuelPriceBoard }) {
       <div className="kfs-band">
         <section className="kfs-cta">
           <div className="kfs-cta-inner">
-            <h2>Fueling your journey</h2>
+            <h2>Fill up on the Sialkot Bypass</h2>
             <p>Call the pump, or open the loyalty app after you fill.</p>
             <div className="kfs-actions">
               <a className="kfs-btn kfs-btn-yellow" href={`tel:${STATION.phoneTel}`}>

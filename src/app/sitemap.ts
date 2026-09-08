@@ -18,5 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified,
     changeFrequency: p.changeFrequency,
     priority: p.priority,
+    ...(p.path === "/" ? { images: [`${SITE_URL}/og.jpg`] } : {}),
   }));
 }

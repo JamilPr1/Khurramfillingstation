@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { isStandalonePwa } from "./PwaRegister";
+import { isStandalonePwa } from "./installPrompt";
 import { onInstallPromptChange, promptInstall } from "./installPrompt";
 
 export function InstallAppButton({

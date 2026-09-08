@@ -170,7 +170,8 @@ const customerItems = [
 export function CustomerNav() {
   const path = usePathname();
   return (
-    <nav className="kfs-app-nav" style={{ gridTemplateColumns: "repeat(5, 1fr)" }}>
+    <nav className="kfs-app-nav kfs-app-nav-5" aria-label="Customer menu">
+      <p className="kfs-app-nav-brand">Customer</p>
       {customerItems.map((item) => {
         const on = path === item.href;
         const isScan = item.href === "/customer/scan";
@@ -202,8 +203,30 @@ const staffItems = [
 export function StaffNav() {
   const path = usePathname();
   return (
-    <nav className="kfs-app-nav" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+    <nav className="kfs-app-nav kfs-app-nav-4" aria-label="Staff menu">
+      <p className="kfs-app-nav-brand">Staff</p>
       {staffItems.map((item) => (
+        <Link key={item.href} href={item.href} className={path === item.href ? "is-on" : ""}>
+          {item.label}
+        </Link>
+      ))}
+    </nav>
+  );
+}
+
+const adminItems = [
+  { href: "/admin", label: "Rewards" },
+  { href: "/admin/customers", label: "Cards" },
+  { href: "/admin/settings", label: "Settings" },
+  { href: "/admin/more", label: "More" },
+];
+
+export function AdminNav() {
+  const path = usePathname();
+  return (
+    <nav className="kfs-app-nav kfs-app-nav-4" aria-label="Admin menu">
+      <p className="kfs-app-nav-brand">Admin</p>
+      {adminItems.map((item) => (
         <Link key={item.href} href={item.href} className={path === item.href ? "is-on" : ""}>
           {item.label}
         </Link>

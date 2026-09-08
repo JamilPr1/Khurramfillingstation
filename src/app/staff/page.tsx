@@ -10,10 +10,11 @@ type Dash = {
 };
 
 export default function StaffFillPage() {
-  const [litres, setLitres] = useState("28");
-  const [amount, setAmount] = useState("7280");
+  const [litres, setLitres] = useState("");
+  const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [rate, setRate] = useState(1);
   const [qr, setQr] = useState<{
     code: string;
     points: number;
@@ -27,7 +28,10 @@ export default function StaffFillPage() {
   function load() {
     fetch("/api/staff/dashboard")
       .then((r) => r.json())
-      .then(setDash);
+      .then((d) => {
+        setDash(d);
+        if (d.pointsPerLitre) setRate(d.pointsPerLitre);
+      });
   }
 
   useEffect(() => {
@@ -67,7 +71,7 @@ export default function StaffFillPage() {
           title="Show to customer"
           subtitle={`${qr.litres} L · Rs ${qr.amount.toLocaleString()} · +${qr.points} pts`}
         />
-        <div className="kfs-app-body">
+        <div className="kfs-app-body kfs-desk-narrow">
           <div className="card mb-4 px-4 py-5 text-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={qr.img} alt="Fill QR" className="mx-auto w-52" />
@@ -89,7 +93,7 @@ export default function StaffFillPage() {
       <form onSubmit={onSubmit} className="kfs-app-body">
         <Field label="Litres" inputMode="decimal" value={litres} onChange={(e) => setLitres(e.target.value)} />
         <Field label="Amount (Rs)" inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} />
-        <p className="mb-3 text-xs text-[#667066]">1 point per litre</p>
+        <p className="mb-3 text-xs text-[#667066]">{rate} point{rate === 1 ? "" : "s"} per litre</p>
         {error ? <Note error>{error}</Note> : null}
         <Btn type="submit" disabled={busy}>
           {busy ? "Making QR…" : "Make QR"}

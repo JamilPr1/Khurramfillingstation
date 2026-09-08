@@ -17,10 +17,14 @@ export const KEYWORDS = [
   "Khurram Filling Station",
   "Khurram Filling Station PSO",
   "Khurram Filling Station Gujranwala",
+  "Khurram Iftikhar",
   "PSO Gujranwala",
   "PSO petrol pump Gujranwala",
+  "PSO Sialkot Bypass",
   "petrol pump Gujranwala",
   "petrol pump Sialkot Bypass",
+  "petrol price Gujranwala",
+  "diesel price Gujranwala",
   "filling station Garden Town Gujranwala",
   "Sialkot Bypass Road petrol pump",
   "diesel pump Gujranwala",
@@ -36,7 +40,7 @@ export const KEYWORDS = [
 
 export const DEFAULT_TITLE = "Khurram Filling Station | PSO Petrol Pump Gujranwala";
 export const DEFAULT_DESCRIPTION =
-  "Khurram Filling Station is a 24-hour PSO petrol pump on Sialkot Bypass Road, opposite Garden Town, Gujranwala. Petrol, HSD diesel, Hi-Octane, mart, car wash and loyalty points.";
+  "Khurram Filling Station is a 24-hour PSO petrol pump opposite Garden Town, Gujranwala, on Sialkot Bypass Road. Open since 2015. Petrol, HSD diesel, Hi-Octane, mart, car wash and loyalty points.";
 
 export const FAQS = [
   {
@@ -61,7 +65,7 @@ export const FAQS = [
   },
   {
     q: "How does the loyalty card work?",
-    a: "Install the app from this website, sign in, and scan the cashier QR after you fill. You earn 1 point per litre.",
+    a: "Install the app from this website, sign in with your mobile number and PIN, and scan the cashier QR after you fill. You earn points for every litre.",
   },
 ];
 
@@ -90,7 +94,17 @@ export function pageMetadata({
     keywords: KEYWORDS,
     alternates: { canonical: url },
     robots: index
-      ? { index: true, follow: true, googleBot: { index: true, follow: true } }
+      ? {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+          },
+        }
       : { index: false, follow: false },
     openGraph: {
       title: fullTitle,
@@ -140,6 +154,7 @@ export function gasStationJsonLd() {
     alternateName: ["KFS", "Khurram Filling Station PSO", "خرم فلنگ اسٹیشن"],
     description: DEFAULT_DESCRIPTION,
     url: SITE_URL,
+    foundingDate: "2015",
     image: [absoluteUrl("/og.jpg"), absoluteUrl("/assets/photos/kfs-hero.jpg")],
     logo: absoluteUrl("/assets/logos/logo-horizontal.png"),
     telephone: STATION.phoneTel,
@@ -181,6 +196,12 @@ export function gasStationJsonLd() {
       { "@type": "LocationFeatureSpecification", name: "Car wash", value: true },
       { "@type": "LocationFeatureSpecification", name: "24 hour pumps", value: true },
     ],
+    makesOffer: [
+      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Petrol" } },
+      { "@type": "Offer", itemOffered: { "@type": "Product", name: "HSD Diesel" } },
+      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Hi-Octane" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Car wash" } },
+    ],
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -196,12 +217,19 @@ export function gasStationJsonLd() {
         name: "WhatsApp",
       },
     ],
-    sameAs: [`https://wa.me/${STATION.whatsapp}`, STATION.maps].filter(Boolean),
-    founder: { "@type": "Person", name: "Khurram Iftikhar", jobTitle: "CEO & Owner" },
+    sameAs: [
+      `https://wa.me/${STATION.whatsapp}`,
+      STATION.maps,
+      STATION.social.instagram,
+      STATION.social.youtube,
+      STATION.social.x,
+      STATION.social.facebook,
+    ].filter(Boolean),
+    founder: { "@type": "Person", name: "Khurram Iftikhar", jobTitle: "CEO" },
     employee: [
-      { "@type": "Person", name: "Khurram Iftikhar", jobTitle: "CEO & Owner" },
+      { "@type": "Person", name: "Khurram Iftikhar", jobTitle: "CEO" },
       { "@type": "Person", name: "Rashid", jobTitle: "Manager" },
-      { "@type": "Person", name: "Abdulrazaq", jobTitle: "Forecourt Manager" },
+      { "@type": "Person", name: "Abdul Razaq", jobTitle: "Forecourt Manager" },
     ],
   };
 }

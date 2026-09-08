@@ -1,11 +1,18 @@
-export type Role = "customer" | "staff";
+export type Role = "customer" | "staff" | "admin";
 
 export type Customer = {
   id: string;
   phone: string;
   name: string;
+  pinHash: string;
   points: number;
+  walletPkr: number;
+  cardNumber: string;
   createdAt: string;
+};
+
+export type PublicCustomer = Omit<Customer, "pinHash" | "cardNumber"> & {
+  cardMasked: string;
 };
 
 export type Session = {
@@ -30,8 +37,9 @@ export type Fill = {
 export type LedgerEntry = {
   id: string;
   customerId: string;
-  type: "earn" | "redeem" | "bonus";
+  type: "earn" | "redeem" | "bonus" | "cashback";
   points: number;
+  pkr?: number;
   note: string;
   at: string;
 };
@@ -41,6 +49,8 @@ export type Reward = {
   name: string;
   points: number;
   detail: string;
+  kind: "item" | "discount";
+  discountPkr: number;
 };
 
 export type RedeemRequest = {
@@ -66,6 +76,17 @@ export type Feedback = {
   at: string;
 };
 
+export type Settings = {
+  pointsPerLitre: number;
+  qrMinutes: number;
+  pkrPerPoint: number;
+  lastCashbackMonth: string;
+  staffPinHash: string;
+  adminEmail: string;
+  adminPasswordHash: string;
+  rewards: Reward[];
+};
+
 export type StoreData = {
   customers: Customer[];
   sessions: Session[];
@@ -73,4 +94,5 @@ export type StoreData = {
   ledger: LedgerEntry[];
   redeems: RedeemRequest[];
   feedback: Feedback[];
+  settings: Settings;
 };

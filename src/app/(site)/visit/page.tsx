@@ -8,7 +8,7 @@ import { FAQS, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Visit & Directions",
   description:
-    "Find Khurram Filling Station opposite Garden Town, Gujranwala on Sialkot Bypass Road. 24-hour PSO petrol pump. Call 0300-8640045 or WhatsApp for directions.",
+    "Find Khurram Filling Station opposite Garden Town, Gujranwala on Sialkot Bypass Road. 24-hour PSO petrol pump. Call 0332-8119081 or WhatsApp for directions.",
   path: "/visit",
 });
 

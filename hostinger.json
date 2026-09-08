@@ -1,0 +1,8 @@
+{
+  "applicationType": "next",
+  "nodeVersion": "20",
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "startCommand": "npm run start -- -p $PORT"
+}

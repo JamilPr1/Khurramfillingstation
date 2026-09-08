@@ -22,8 +22,17 @@ const AI_BOTS = [
   "Diffbot",
 ];
 
-const publicAllow = ["/", "/llms.txt", "/llms-full.txt", "/ai.txt", "/sitemap.xml"];
-const privateDisallow = ["/api/", "/customer/", "/staff/", "/login"];
+const publicAllow = [
+  "/",
+  "/llms.txt",
+  "/llms-full.txt",
+  "/ai.txt",
+  "/sitemap.xml",
+  "/.well-known/llms.txt",
+  "/.well-known/llms-full.txt",
+  "/.well-known/ai.txt",
+];
+const privateDisallow = ["/api/", "/customer/", "/staff/", "/admin/", "/login"];
 
 export default function robots(): MetadataRoute.Robots {
   return {

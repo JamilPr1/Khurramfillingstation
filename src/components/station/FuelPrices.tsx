@@ -22,7 +22,7 @@ export function FuelPrices({ prices, variant = "white" }: Props) {
       <h2>Petrol, Hi-Octane and diesel</h2>
       <p className="kfs-lead">
         Pakistan pump prices, refreshed from PSO. Hi-Octane is the Gujranwala rate.
-        Confirm on the board at this station — a little freight can apply at the nozzle.
+        Confirm on the board at this station. A little freight can apply at the nozzle.
       </p>
       <div className="kfs-price-grid">
         {cards.map((card) => (

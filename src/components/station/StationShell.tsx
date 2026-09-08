@@ -110,10 +110,16 @@ export function StationShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function TeamCards({ showBio = false }: { showBio?: boolean }) {
+export function TeamCards({
+  showBio = false,
+  people = TEAM,
+}: {
+  showBio?: boolean;
+  people?: typeof TEAM;
+}) {
   return (
-    <div className="kfs-team-grid">
-      {TEAM.map((m) => (
+    <div className={`kfs-team-grid${people.length === 2 ? " is-two" : ""}`}>
+      {people.map((m) => (
         <article className="kfs-team-card" key={m.name}>
           <div className="kfs-team-pic">
             <img src={m.img} alt={`${m.name}, ${m.role} at Khurram Filling Station`} />

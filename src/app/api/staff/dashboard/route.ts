@@ -17,6 +17,7 @@ export async function GET() {
         pendingRedeems: s.redeems.filter((r) => r.status === "pending"),
         recentFills: s.fills.slice(0, 20),
         feedback,
+        pointsPerLitre: s.settings.pointsPerLitre,
         stats: {
           fillsToday: fillsToday.length,
           usedToday: fillsToday.filter((f) => f.usedAt).length,

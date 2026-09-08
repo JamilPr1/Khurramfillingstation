@@ -2,18 +2,15 @@
 
 import { useEffect } from "react";
 import { bindInstallPrompt } from "./installPrompt";
+import { InstallPopup } from "./InstallPopup";
 
 export function PwaRegister() {
   useEffect(() => {
     bindInstallPrompt();
     if (!("serviceWorker" in navigator)) return;
-    navigator.serviceWorker.register("/sw.js").catch(() => undefined);
+    navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => undefined);
   }, []);
-  return null;
+  return <InstallPopup />;
 }
 
-export function isStandalonePwa() {
-  if (typeof window === "undefined") return false;
-  const nav = window.navigator as Navigator & { standalone?: boolean };
-  return window.matchMedia("(display-mode: standalone)").matches || Boolean(nav.standalone);
-}
+export { isStandalonePwa } from "./installPrompt";

@@ -2,10 +2,13 @@
   "name": "khurram-demo",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "start": "next start",
+    "start": "node scripts/start.cjs",
     "lint": "eslint"
   },
   "dependencies": {

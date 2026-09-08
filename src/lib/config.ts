@@ -7,18 +7,17 @@ export const STATION = {
   maps: "https://www.google.com/maps/place/PSO/@32.2026267,74.198357,17z/data=!3m1!4b1!4m6!3m5!1s0x391f29c91a684009:0x9779b42f15bb88d8!8m2!3d32.2026267!4d74.198357",
   lat: 32.2026267,
   lng: 74.198357,
-  phone: "0300-8640045",
-  phoneTel: "+923008640045",
-  whatsapp: "923008640045",
+  phone: "0332-8119081",
+  phoneTel: "+923328119081",
+  whatsapp: "923328119081",
   email: "khurramfillingstationpso@gmail.com",
   hours: "24 hours",
-  /** Paste full profile URLs here when the station is ready. Empty = icon shows, not linked yet. */
+  /** Empty URL = that network is omitted from header/footer. */
   social: {
     facebook: "",
-    instagram: "",
-    youtube: "",
-    tiktok: "",
-    x: "",
+    instagram: "https://www.instagram.com/khurramfillingstationpso/",
+    youtube: "https://www.youtube.com/@KhurramFillingStation",
+    x: "https://x.com/Khurramfilling",
   },
   videos: [
     { id: "sDJdqDYPnxg", title: "Khurram Filling Station | Gujranwala Best Petrol Pump" },
@@ -26,24 +25,38 @@ export const STATION = {
   ],
 };
 
-export const DEMO = {
-  otp: "1234",
-  staffPin: "1234",
-  samplePhone: "03001234567",
-  sampleName: "Ahmed Khan",
-  qrMinutes: 3,
-};
+export const ADMIN_EMAIL = STATION.email.toLowerCase();
 
-/** 1 loyalty point per litre filled. */
-export function pointsForLitres(litres: number) {
-  return Math.max(0, Math.round(litres));
-}
-
-export const REWARDS: Reward[] = [
-  { id: "snack", name: "Shop snack", points: 200, detail: "Any snack from the mart" },
-  { id: "wash", name: "Car wash", points: 500, detail: "One exterior wash" },
-  { id: "off200", name: "Rs 200 off", points: 1000, detail: "Taken off the next fill" },
+export const DEFAULT_REWARDS: Reward[] = [
+  {
+    id: "snack",
+    name: "Shop snack",
+    points: 200,
+    detail: "Any snack from the mart",
+    kind: "item",
+    discountPkr: 0,
+  },
+  {
+    id: "wash",
+    name: "Car wash",
+    points: 500,
+    detail: "One exterior wash",
+    kind: "item",
+    discountPkr: 0,
+  },
+  {
+    id: "off200",
+    name: "Rs 200 off",
+    points: 1000,
+    detail: "Taken off the next fill",
+    kind: "discount",
+    discountPkr: 200,
+  },
 ];
+
+export function pointsForLitres(litres: number, perLitre = 1) {
+  return Math.max(0, Math.round(litres * perLitre));
+}
 
 export const FEEDBACK_TOPICS = [
   "Staff behaviour",

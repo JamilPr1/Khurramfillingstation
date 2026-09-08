@@ -1,16 +1,15 @@
 import { NextResponse } from "next/server";
 import { requireCustomer, unauthorized } from "@/lib/auth";
-import { REWARDS } from "@/lib/config";
 import { newId, nowIso, withStore } from "@/lib/store";
 
 export async function POST(req: Request) {
   try {
     const { customer } = await requireCustomer();
     const body = (await req.json()) as { rewardId?: string };
-    const reward = REWARDS.find((r) => r.id === body.rewardId);
-    if (!reward) return NextResponse.json({ error: "Unknown reward." }, { status: 400 });
 
     const result = await withStore((s) => {
+      const reward = s.settings.rewards.find((r) => r.id === body.rewardId);
+      if (!reward) return { error: "Unknown reward." };
       const live = s.customers.find((c) => c.id === customer.id);
       if (!live) throw new Error("UNAUTHORIZED");
       if (live.points < reward.points) {
@@ -26,7 +25,9 @@ export async function POST(req: Request) {
         customerName: live.name,
         customerPhone: live.phone,
         rewardId: reward.id,
-        rewardName: reward.name,
+        rewardName: reward.kind === "discount" && reward.discountPkr
+          ? `${reward.name} (Rs ${reward.discountPkr} off)`
+          : reward.name,
         points: reward.points,
         status: "pending" as const,
         createdAt: nowIso(),

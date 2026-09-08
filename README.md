@@ -5,34 +5,38 @@ Loyalty points, cashier QR, and visit feedback.
 ```bash
 cd khurram-demo
 npm install
+cp .env.example .env.local
+# Set ADMIN_PASSWORD and STAFF_PIN in .env.local
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) — the app opens on the sign-in screen.
+Open [http://localhost:3000](http://localhost:3000).
 
 | Role | Sign in |
 |------|---------|
-| Customer | `03001234567` · OTP `1234` |
-| Staff | PIN `1234` |
-
-Toggle Customer / Staff on the login screen, then sign in.
+| Customer | Name, mobile number, 4–6 digit PIN you choose |
+| Staff | Station PIN (set by admin) |
+| Admin | `khurramfillingstationpso@gmail.com` and `ADMIN_PASSWORD` |
 
 The public site is [http://localhost:3000](http://localhost:3000). Install the PWA from there; the app opens at `/login`.
 
-## Go live on Vercel
+## Go live on Hostinger
 
-This repo is the Next.js app root (no extra folder). Import it in Vercel:
+This repo is the Next.js app root. In hPanel:
 
-1. Open [vercel.com/new](https://vercel.com/new) and sign in with GitHub.
-2. Import **JamilPr1/Khurramfillingstation**.
-3. Leave **Framework Preset** as Next.js and **Root Directory** empty.
-4. Deploy. You get a `*.vercel.app` URL.
-5. In the project: **Settings → Environment Variables**, add:
+1. **Websites → Add Website → Node.js Apps** (or Import Git Repository).
+2. Select **JamilPr1/Khurramfillingstation**, branch `main`.
+3. Confirm auto-detected settings:
+   - Application type: **next**
+   - Node.js: **20** or newer
+   - Install: `npm ci`
+   - Build: `npm run build`
+   - Output directory: `.next`
+   - Start (if asked): `npm run start -- -p $PORT`
+4. Environment variables:
+   - `NEXT_PUBLIC_SITE_URL` = `https://your-domain.com` (no trailing slash)
+   - `ADMIN_PASSWORD` = a strong password for `khurramfillingstationpso@gmail.com`
+   - `STAFF_PIN` = 4 to 6 digits for cashiers
+5. Point the domain at this Node.js app. Hostinger generates the `public_html` `.htaccess`. Do not hand-edit it.
 
-   `NEXT_PUBLIC_SITE_URL` = `https://your-project.vercel.app`
-
-   (Use your real Vercel URL, no trailing slash.) Redeploy once so sitemap and Open Graph use that URL.
-
-6. Optional: **Settings → Domains** to attach a custom domain, then update `NEXT_PUBLIC_SITE_URL` to match.
-
-Loyalty points and contact-form messages are stored on disk. On Vercel that storage is temporary (serverless), so treat the live loyalty app as a demo. The public station site, fuel prices, and PWA work on Vercel.
+After the first start, change the admin password and staff PIN in **Login → Admin → Settings**. Loyalty data is stored in `data/store.json` on the server.

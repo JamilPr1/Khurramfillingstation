@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireCustomer, unauthorized } from "@/lib/auth";
-import { REWARDS } from "@/lib/config";
-import { withStore } from "@/lib/store";
+import { publicCustomer, withStore } from "@/lib/store";
 
 export async function GET() {
   try {
@@ -12,7 +11,14 @@ export async function GET() {
         .sort((a, b) => b.at.localeCompare(a.at));
       const pending = s.redeems.filter((r) => r.customerId === customer.id && r.status === "pending");
       const live = s.customers.find((c) => c.id === customer.id)!;
-      return { customer: live, ledger, pending, rewards: REWARDS };
+      return {
+        customer: publicCustomer(live),
+        ledger,
+        pending,
+        rewards: s.settings.rewards,
+        pkrPerPoint: s.settings.pkrPerPoint,
+        lastCashbackMonth: s.settings.lastCashbackMonth,
+      };
     });
     return NextResponse.json(data);
   } catch {

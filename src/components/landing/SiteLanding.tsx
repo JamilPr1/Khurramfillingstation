@@ -29,7 +29,7 @@ const services = [
   },
   {
     title: "Mart & car wash",
-    text: "Shop essentials and a wash while you fill — all at one stop.",
+    text: "Shop essentials and a wash while you fill, all at one stop.",
     img: "/images/kfs-aerial-close.jpg",
     alt: "Close aerial of the station site",
   },
@@ -38,7 +38,7 @@ const services = [
 const photos = [
   { src: "/images/kfs-full.jpg", alt: "Khurram Filling Station night photo from Google Maps", caption: "Night at the pumps" },
   { src: "/images/kfs-busy-night.jpg", alt: "Forecourt, canopy and numbered bays", caption: "Forecourt and canopy" },
-  { src: "/images/kfs-aerial.jpg", alt: "Satellite view of the Sialkot Bypass site", caption: "Aerial — Sialkot Bypass" },
+  { src: "/images/kfs-aerial.jpg", alt: "Satellite view of the Sialkot Bypass site", caption: "Aerial, Sialkot Bypass" },
   { src: "/images/kfs-hybrid.jpg", alt: "Satellite with road labels", caption: "Satellite with roads" },
   { src: "/images/kfs-aerial-close.jpg", alt: "Closer satellite of the filling station", caption: "Close aerial" },
   { src: "/images/kfs-roadmap.jpg", alt: "Street map pin for the station", caption: "Map pin" },
@@ -121,7 +121,7 @@ export function SiteLanding() {
           <p className="lp-kicker">Gujranwala · Sialkot Bypass</p>
           <h1>Fuel for every journey. Points on every fill.</h1>
           <p className="lp-lead">
-            Khurram Filling Station — petrol, diesel and Hi-Octane opposite Garden Town.
+            Khurram Filling Station: petrol, diesel and Hi-Octane opposite Garden Town.
             Install the loyalty app from this site, scan the cashier QR, and redeem rewards. No store download.
           </p>
           <div className="lp-hero-actions">
@@ -156,7 +156,7 @@ export function SiteLanding() {
           </p>
           <ul className="lp-checks">
             <li>Opposite Garden Town, easy to find on Maps</li>
-            <li>Loyalty QR — one-time code, not a poster cheat</li>
+            <li>Loyalty QR: one-time code, not a poster cheat</li>
             <li>Feedback after every visit, to our staff only</li>
           </ul>
           <a className="lp-phone" href={`tel:${STATION.phoneTel}`}>
@@ -191,7 +191,7 @@ export function SiteLanding() {
 
       <section className="lp-gallery" id="gallery">
         <p className="lp-kicker dark">This station</p>
-        <h2>Photos and videos — all different views</h2>
+        <h2>Photos and videos: all different views</h2>
         <p className="lp-gallery-lead">
           Night photos, satellite of this pin, and station videos. Each picture is a different shot, shown in full inside the card.
         </p>
@@ -297,7 +297,7 @@ export function SiteLanding() {
       </section>
 
       <section className="lp-cta">
-        <h2>Get in touch — then install and fill</h2>
+        <h2>Get in touch, then install and fill</h2>
         <p>Support at the pump, loyalty on your phone.</p>
         <SocialIcons className="on-dark" />
         <div className="lp-hero-actions">
@@ -309,7 +309,7 @@ export function SiteLanding() {
       </section>
 
       <aside className="lp-ios" id="ios-install">
-        <strong>iPhone / iPad:</strong> Safari → Share → Add to Home Screen. Open the icon — it goes straight to login.
+        <strong>iPhone / iPad:</strong> Safari → Share → Add to Home Screen. Open the icon. It goes straight to login.
         {" "}
         <strong>Android:</strong> Chrome → Install app (or the button above). After install you are taken to sign in.
       </aside>

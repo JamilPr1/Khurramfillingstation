@@ -1,6 +1,6 @@
 import { STATION } from "@/lib/config";
 
-type IconName = "facebook" | "instagram" | "youtube" | "tiktok" | "x" | "whatsapp";
+type IconName = "facebook" | "instagram" | "youtube" | "x" | "whatsapp";
 
 const ICONS: { name: IconName; label: string; path: string }[] = [
   {
@@ -17,11 +17,6 @@ const ICONS: { name: IconName; label: string; path: string }[] = [
     name: "youtube",
     label: "YouTube",
     path: "M22.5 7.2a3.2 3.2 0 0 0-2.2-2.3C18.6 4.5 12 4.5 12 4.5s-6.6 0-8.3.4A3.2 3.2 0 0 0 1.5 7.2 33 33 0 0 0 1 12a33 33 0 0 0 .5 4.8 3.2 3.2 0 0 0 2.2 2.3c1.7.4 8.3.4 8.3.4s6.6 0 8.3-.4a3.2 3.2 0 0 0 2.2-2.3A33 33 0 0 0 23 12a33 33 0 0 0-.5-4.8zM10 15.5v-7l6 3.5z",
-  },
-  {
-    name: "tiktok",
-    label: "TikTok",
-    path: "M14 3h3.1a5.6 5.6 0 0 0 3.9 3.7V10a8.6 8.6 0 0 1-3.9-1.1v6.6A6.6 6.6 0 1 1 9.2 9.1V12a3.4 3.4 0 1 0 2.5 3.3V3z",
   },
   {
     name: "x",
@@ -45,24 +40,7 @@ export function SocialIcons({ className = "" }: { className?: string }) {
     <div className={`lp-social ${className}`.trim()} aria-label="Social media">
       {ICONS.map((icon) => {
         const href = hrefFor(icon.name);
-        const pending = !href;
-        const inner = (
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d={icon.path} />
-          </svg>
-        );
-        if (pending) {
-          return (
-            <span
-              key={icon.name}
-              className="lp-social-link is-pending"
-              title={`${icon.label} — paste your link in config when ready`}
-              aria-label={`${icon.label} (link coming soon)`}
-            >
-              {inner}
-            </span>
-          );
-        }
+        if (!href) return null;
         return (
           <a
             key={icon.name}
@@ -72,7 +50,9 @@ export function SocialIcons({ className = "" }: { className?: string }) {
             rel="noreferrer"
             aria-label={icon.name === "whatsapp" ? `WhatsApp ${STATION.phone}` : icon.label}
           >
-            {inner}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d={icon.path} />
+            </svg>
           </a>
         );
       })}

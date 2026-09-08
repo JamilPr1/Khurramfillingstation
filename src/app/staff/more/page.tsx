@@ -17,7 +17,7 @@ export default function StaffMorePage() {
       <div className="kfs-app-body">
         <div className="kfs-app-install">
           <h2>Download the staff app</h2>
-          <p>Install Khurram Filling Station on this phone or tablet for fill QR and redeem.</p>
+          <p>Install Khurram Filling Station on this device for fill QR and redeem.</p>
           <InstallAppButton className="kfs-app-btn kfs-app-btn-primary" label="Download app" />
           <p id="ios-install">iPhone: Share → Add to Home Screen.</p>
         </div>

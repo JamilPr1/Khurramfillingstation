@@ -4,6 +4,7 @@ import type { Customer, Session } from "./types";
 
 export const COOKIE_CUSTOMER = "kfs_c";
 export const COOKIE_STAFF = "kfs_s";
+export const COOKIE_ADMIN = "kfs_a";
 
 export async function getCustomerSession(): Promise<Session | null> {
   const token = (await cookies()).get(COOKIE_CUSTOMER)?.value;
@@ -21,6 +22,14 @@ export async function getStaffSession(): Promise<Session | null> {
   );
 }
 
+export async function getAdminSession(): Promise<Session | null> {
+  const token = (await cookies()).get(COOKIE_ADMIN)?.value;
+  if (!token) return null;
+  return withStore(
+    (s) => s.sessions.find((x) => x.token === token && x.role === "admin") ?? null,
+  );
+}
+
 export async function requireCustomer(): Promise<{ session: Session; customer: Customer }> {
   const session = await getCustomerSession();
   if (!session || !session.customerId) throw new Error("UNAUTHORIZED");
@@ -31,6 +40,12 @@ export async function requireCustomer(): Promise<{ session: Session; customer: C
 
 export async function requireStaff() {
   const session = await getStaffSession();
+  if (!session) throw new Error("UNAUTHORIZED");
+  return session;
+}
+
+export async function requireAdmin() {
+  const session = await getAdminSession();
   if (!session) throw new Error("UNAUTHORIZED");
   return session;
 }

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import QRCode from "qrcode";
 import { requireStaff, unauthorized } from "@/lib/auth";
-import { DEMO, pointsForLitres } from "@/lib/config";
+import { pointsForLitres } from "@/lib/config";
 import { newId, nowIso, withStore } from "@/lib/store";
 
 function six() {
@@ -27,9 +27,9 @@ export async function POST(req: Request) {
         code: six(),
         litres,
         amount,
-        points: pointsForLitres(litres),
+        points: pointsForLitres(litres, s.settings.pointsPerLitre),
         createdAt: nowIso(),
-        expiresAt: new Date(Date.now() + DEMO.qrMinutes * 60 * 1000).toISOString(),
+        expiresAt: new Date(Date.now() + s.settings.qrMinutes * 60 * 1000).toISOString(),
         usedAt: null,
         usedBy: null,
       };

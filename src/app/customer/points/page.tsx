@@ -1,24 +1,52 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { formatWhen, Loading, Note, Row, ScreenHeader, Section } from "@/components/ui";
-import { STATION } from "@/lib/config";
-import type { Customer, LedgerEntry, Reward } from "@/lib/types";
+import { Loading, Note, ScreenHeader, Section } from "@/components/ui";
+import { VirtualCard } from "@/components/app/VirtualCard";
+import type { LedgerEntry, PublicCustomer, Reward } from "@/lib/types";
+
+function stamp(iso: string) {
+  const d = new Date(iso);
+  const date = d.toLocaleDateString("en-GB", { timeZone: "Asia/Karachi" }).replace(/\//g, "-");
+  const time = d.toLocaleTimeString("en-PK", {
+    timeZone: "Asia/Karachi",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+  return `${date} | ${time}`;
+}
+
+function histTitle(row: LedgerEntry) {
+  if (row.type === "earn") return "Purchase";
+  if (row.type === "cashback") return "Monthly cashback";
+  if (row.type === "bonus") return "Bonus";
+  return "Redeem";
+}
 
 export default function PointsPage() {
-  const [customer, setCustomer] = useState<Customer | null>(null);
+  const [customer, setCustomer] = useState<PublicCustomer | null>(null);
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
   const [rewards, setRewards] = useState<Reward[]>([]);
+  const [rate, setRate] = useState(0.2);
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
 
   function load() {
     fetch("/api/customer/home")
-      .then((r) => r.json())
-      .then((d) => {
+      .then(async (r) => {
+        const d = await r.json();
+        if (!r.ok || !d.customer) {
+          window.location.href = "/login";
+          return;
+        }
         setCustomer(d.customer);
         setLedger(d.ledger || []);
         setRewards(d.rewards || []);
+        if (d.pkrPerPoint) setRate(d.pkrPerPoint);
+      })
+      .catch(() => {
+        window.location.href = "/login";
       });
   }
 
@@ -47,59 +75,58 @@ export default function PointsPage() {
 
   return (
     <>
-      <ScreenHeader title="Loyalty card" subtitle={`${customer.points.toLocaleString()} points`} />
-      <div className="kfs-app-body">
-        <div className="kfs-app-balance">
-          <div className="flex items-start justify-between text-xs text-white/75">
-            <span>{STATION.short}</span>
-            <span>Point balance</span>
-          </div>
-          <strong>{customer.points.toLocaleString()}</strong>
-          <div className="mt-5 flex justify-between text-xs text-white/85">
-            <span>
-              {customer.name}
-              <br />
-              {customer.phone.replace(/(\d{4})\d{3}(\d{4})/, "$1 *** $2")}
-            </span>
-            <span className="text-right">
-              Khurram Filling Station
-              <br />
-              Garden Town
-            </span>
-          </div>
+      <ScreenHeader title="Points" subtitle="View your points balance and history." />
+      <div className="kfs-app-body kfs-desk-split">
+        <div>
+          <p className="mb-2 text-[13px] font-semibold text-[#5b6472]">Points details</p>
+          <VirtualCard customer={customer} />
+
+          <Section title="Redeem at cashier">
+            {rewards.map((r) => (
+              <div key={r.id} className="kfs-app-card mb-2 flex items-center justify-between gap-3 px-3.5 py-3">
+                <div>
+                  <div className="text-sm font-medium">{r.name}</div>
+                  <div className="text-xs text-[#5b6472]">
+                    {r.kind === "discount" && r.discountPkr
+                      ? `Rs ${r.discountPkr} off · ${r.points} pts`
+                      : `${r.detail} · ${r.points} pts`}
+                  </div>
+                </div>
+                <button
+                  className="rounded-lg bg-[#f9d900] px-3 py-1.5 text-xs font-semibold text-[#152445] disabled:opacity-40"
+                  disabled={customer.points < r.points}
+                  onClick={() => redeem(r.id)}
+                >
+                  Redeem
+                </button>
+              </div>
+            ))}
+            {msg ? <Note>{msg}</Note> : null}
+            {err ? <Note error>{err}</Note> : null}
+          </Section>
         </div>
 
-        <Section title="Redeem at cashier">
-          {rewards.map((r) => (
-            <div key={r.id} className="card mb-2 flex items-center justify-between gap-3 px-3.5 py-3">
-              <div>
-                <div className="text-sm font-medium">{r.name}</div>
-                <div className="text-xs text-[#667066]">
-                  {r.detail} · {r.points} pts
+        <Section title="Points history">
+          {ledger.length === 0 ? (
+            <p className="text-sm text-[#5b6472]">No fills yet. Scan the cashier QR after you fill.</p>
+          ) : (
+            ledger.map((l) => (
+              <div className="kfs-hist" key={l.id}>
+                <div>
+                  <p className="kfs-hist-title">{histTitle(l)}</p>
+                  <p className="kfs-hist-when">{stamp(l.at)}</p>
                 </div>
+                <p className={`kfs-hist-pts ${l.points < 0 ? "is-out" : "is-in"}`}>
+                  {l.points > 0 ? "+" : ""}
+                  {l.points} Points
+                </p>
               </div>
-              <button
-                className="rounded-lg bg-[#f9d900] px-3 py-1.5 text-xs font-semibold text-[#152445] disabled:opacity-40"
-                disabled={customer.points < r.points}
-                onClick={() => redeem(r.id)}
-              >
-                Redeem
-              </button>
-            </div>
-          ))}
-          {msg ? <Note>{msg}</Note> : null}
-          {err ? <Note error>{err}</Note> : null}
-        </Section>
-
-        <Section title="History">
-          {ledger.map((l) => (
-            <Row
-              key={l.id}
-              title={l.note}
-              sub={formatWhen(l.at)}
-              right={l.points > 0 ? `+${l.points}` : String(l.points)}
-            />
-          ))}
+            ))
+          )}
+          <p className="kfs-note-box">
+            <strong>Note</strong> · Points not redeemed are converted to rupees on the last day of
+            every month ({rate} Rs per point) and added to this card.
+          </p>
         </Section>
       </div>
     </>

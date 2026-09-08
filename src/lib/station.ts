@@ -4,7 +4,7 @@ export const FUELS = [
   {
     title: "Petrol",
     text: "Reliable petrol on the Sialkot Bypass, ready when you are.",
-    detail: "Available 24 hours at the pump for cars, bikes and everyday journeys across Gujranwala.",
+    detail: "Available 24 hours at the pump for cars, bikes and everyday trips across Gujranwala.",
     icon: "/assets/icons/drop.svg",
   },
   {
@@ -21,7 +21,7 @@ export const FUELS = [
   },
   {
     title: "Mart & car wash",
-    text: "Shop essentials and a wash while you fill — all at one stop.",
+    text: "Shop essentials and a wash while you fill, all at one stop.",
     detail: "Snacks, shop items and a wash while you wait. One stop on the Sialkot Bypass.",
     icon: "/assets/icons/car.svg",
   },
@@ -30,9 +30,11 @@ export const FUELS = [
 export const TEAM = [
   {
     name: "Khurram Iftikhar",
-    role: "CEO & Owner",
+    role: "CEO",
     img: "/assets/team/khurram-iftikhar-ceo.jpg?v=2",
-    bio: "Owner of Khurram Filling Station. Leads the pump, the team, and the loyalty service on the Sialkot Bypass.",
+    bio: "CEO of Khurram Filling Station. Leads the pump, the team, and the loyalty service on the Sialkot Bypass.",
+    message:
+      "Since 2015, Khurram Filling Station has operated as an authorised PSO dealership opposite Garden Town. We are committed to reliable fuel quality, disciplined operations, and courteous service for every customer on the Sialkot Bypass, twenty-four hours a day.",
   },
   {
     name: "Rashid",
@@ -41,7 +43,7 @@ export const TEAM = [
     bio: "Station manager. Looks after daily operations, staff and a clean, on-time fill for every driver.",
   },
   {
-    name: "Abdulrazaq",
+    name: "Abdul Razaq",
     role: "Forecourt Manager",
     img: "/assets/team/abdulrazaq-forecourt-manager.jpg?v=2",
     bio: "Forecourt manager. Keeps the bays moving, the pumps ready, and customers looked after on the forecourt.",
@@ -112,7 +114,7 @@ export const MAPS_EMBED = `https://www.google.com/maps?q=${STATION.lat},${STATIO
 export const NAV = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  // { href: "/fuels", label: "Fuels" }, // hidden for now — page still at /fuels
+  // { href: "/fuels", label: "Fuels" }, // hidden for now; page still at /fuels
   { href: "/team", label: "Team" },
   { href: "/visit", label: "Visit" },
   { href: "/loyalty", label: "Loyalty program" },
