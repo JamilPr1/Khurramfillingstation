@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { BlobNotFoundError, get, put } from "@vercel/blob";
 import { ADMIN_EMAIL, DEFAULT_REWARDS, STATION } from "./config";
 import { dataFile } from "./dataDir";
 import { applyMonthlyCashback, issueCardNumber, maskCard } from "./cashback";
@@ -8,6 +9,11 @@ import { hashSecret } from "./secret";
 import type { Customer, PublicCustomer, Settings, StoreData } from "./types";
 
 const FILE = dataFile("store.json");
+const BLOB_KEY = "kfs-store.json";
+
+function blobEnabled() {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+}
 
 function nowIso() {
   return new Date().toISOString();
@@ -102,7 +108,7 @@ function migrate(raw: StoreData): StoreData {
   return data;
 }
 
-function read(): StoreData {
+function readFile(): StoreData {
   if (!fs.existsSync(FILE)) {
     fs.mkdirSync(path.dirname(FILE), { recursive: true });
     const s = migrate(seed());
@@ -113,19 +119,61 @@ function read(): StoreData {
   return migrate(parsed);
 }
 
-function write(data: StoreData) {
+function writeFile(data: StoreData) {
   fs.mkdirSync(path.dirname(FILE), { recursive: true });
   fs.writeFileSync(FILE, JSON.stringify(data, null, 2));
+}
+
+async function readBlob(): Promise<StoreData> {
+  try {
+    const result = await get(BLOB_KEY, { access: "private", useCache: false });
+    if (!result || result.statusCode !== 200 || !result.stream) {
+      const s = migrate(seed());
+      await writeBlob(s);
+      return s;
+    }
+    const text = await new Response(result.stream).text();
+    return migrate(JSON.parse(text) as StoreData);
+  } catch (err) {
+    if (err instanceof BlobNotFoundError) {
+      const s = migrate(seed());
+      await writeBlob(s);
+      return s;
+    }
+    throw err;
+  }
+}
+
+async function writeBlob(data: StoreData) {
+  await put(BLOB_KEY, JSON.stringify(data), {
+    access: "private",
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    contentType: "application/json",
+    cacheControlMaxAge: 60,
+  });
+}
+
+async function read(): Promise<StoreData> {
+  return blobEnabled() ? readBlob() : readFile();
+}
+
+async function write(data: StoreData) {
+  if (blobEnabled()) {
+    await writeBlob(data);
+    return;
+  }
+  writeFile(data);
 }
 
 let chain: Promise<unknown> = Promise.resolve();
 
 export function withStore<T>(fn: (data: StoreData) => T | Promise<T>): Promise<T> {
   const run = chain.then(async () => {
-    const data = read();
+    const data = await read();
     applyMonthlyCashback(data);
     const result = await fn(data);
-    write(data);
+    await write(data);
     return result;
   });
   chain = run.then(

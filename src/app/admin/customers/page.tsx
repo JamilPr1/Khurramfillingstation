@@ -21,6 +21,8 @@ export default function AdminCustomersPage() {
 
   useEffect(() => {
     load();
+    const tick = window.setInterval(load, 8000);
+    return () => window.clearInterval(tick);
   }, []);
 
   const shown = rows.filter((c) => {
@@ -61,7 +63,7 @@ export default function AdminCustomersPage() {
           {msg ? <Note>{msg}</Note> : null}
           {err ? <Note error>{err}</Note> : null}
           {shown.length === 0 ? (
-            <Empty>No customers yet.</Empty>
+            <Empty>No loyalty cards yet. They appear here as soon as a customer signs in on Login.</Empty>
           ) : (
             shown.map((c) => (
               <button
@@ -73,6 +75,14 @@ export default function AdminCustomersPage() {
                 <div>
                   <div className="text-sm font-medium">{c.name}</div>
                   <div className="text-xs text-[#5b6472]">{c.phone}</div>
+                  <div className="text-xs text-[#5b6472]">
+                    {c.cardMasked} ·{" "}
+                    {new Date(c.createdAt).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </div>
                 </div>
                 <div className="text-sm font-semibold text-right">
                   {c.points} pts
